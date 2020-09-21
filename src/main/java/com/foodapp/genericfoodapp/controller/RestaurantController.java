@@ -54,6 +54,7 @@ public class RestaurantController {
 	
 	@PutMapping("{id}")
 	public ResponseEntity<JsonNode> UpdateRestaurant(@PathVariable Integer id ,@Valid @RequestBody UpdateRestaurantDTO restaurant) {
+		restaurantService.updateRestaurant(id, restaurant);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
 	} 
 	
