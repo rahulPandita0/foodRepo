@@ -8,6 +8,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -23,6 +25,10 @@ public class Restaurant {
 	private String state;
 	private String city;
 	private String address;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "updated_by",referencedColumnName = "id")
+	private User UpdatedBy;
 	
 	@OneToMany(mappedBy = "restaurant",fetch = FetchType.LAZY)
 	private Set<Crusine> crusine;
@@ -68,6 +74,12 @@ public class Restaurant {
 	}
 	public void setCrusine(Set<Crusine> crusine) {
 		this.crusine = crusine;
+	}
+	public User getUpdatedBy() {
+		return UpdatedBy;
+	}
+	public void setUpdatedBy(User updatedBy) {
+		UpdatedBy = updatedBy;
 	}
 
 }

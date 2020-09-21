@@ -15,7 +15,7 @@ import com.foodapp.genericfoodapp.repository.CrusineRepository;
 import com.foodapp.genericfoodapp.repository.RestaurantRepository;
 
 @Service
-public class CrusineServiceImpl implements CrusineService{
+public class CrusineServiceImpl extends GenericService implements CrusineService{
 	
 	@Autowired
 	private RestaurantRepository restaurantRepository; 
@@ -29,6 +29,10 @@ public class CrusineServiceImpl implements CrusineService{
 		 Optional<Restaurant>  restaurant = restaurantRepository.findById(resraurantId);
 		 if(restaurant.isPresent())
 		 {
+			 if(!restaurant.get().getUpdatedBy().getId().equals(getExecutingUser())) {
+				 throw new CustomException("unauthorized to edit");
+			 }
+			 
 			 List<Crusine> crusineList = new ArrayList<Crusine>();
 			 for(CrusineDTO crusineDTO :crusines) {
 				 Crusine crusine =  new Crusine();
@@ -37,7 +41,6 @@ public class CrusineServiceImpl implements CrusineService{
 				 crusineList.add(crusine);
 			 }
 			 crusineRepository.saveAll(crusineList);
-//			 return "saved";
 		 }
 		 else
 		 {

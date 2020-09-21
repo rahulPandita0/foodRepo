@@ -1,5 +1,6 @@
 package com.foodapp.genericfoodapp.entity;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -7,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -25,6 +27,10 @@ public class User {
 	private String state;
 	private String city;
 	
+	
+    
+    private String image;	
+
 	@OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "preference_id",referencedColumnName = "id")
 	private Preference preference;
@@ -88,7 +94,11 @@ public class User {
 	public void setLicense(License license) {
 		this.license = license;
 	}
-	
-
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
 	
 }
